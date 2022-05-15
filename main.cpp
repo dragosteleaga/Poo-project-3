@@ -247,41 +247,321 @@ void caine::latra() {
 caine::~caine() {}
 class vaca : public mamifer {
 protected:
-    float greutate;
-    float grasimeRaportatLaGreutate;
+    float raportGrasimeGreutate;
     bool bunaPentruLapte, bunaPentruCarne;
 
 public:
+    vaca();
+    vaca(float raportGrasimeGreutate, bool bunaPentruLapte, bool bunaPentruCarne);
+    vaca(const vaca &v);
+    vaca &operator=(const vaca &v);
+
+
+    friend istream &operator>>(istream &in, vaca &v);
+    friend ostream &operator<<(ostream &out, const vaca &v);
+
+
     void pasca();
     void muu();
+
+    float getraportGrasimeGreutate() const;
+    void setraportGrasimeGreutate(float raportGrasimeGreutate);
+    bool isBunaPentruLapte() const;
+    void setBunaPentruLapte(bool bunaPentruLapte);
+    bool isBunaPentruCarne() const;
+    void setBunaPentruCarne(bool bunaPentruCarne);
+
+    virtual ~vaca() {
+    }
 };
+void vaca::pasca() {
+    cout<<"\nVaca este fericita !";
+}
+void vaca::muu() {
+    cout<<"\nMUUUU";
+}
+ostream &operator<<(ostream &out, const vaca &v){
+    cout<<"\nVaca este un animal terestru ierbivor ";
+    if(v.bunaPentruCarne)
+        cout<<" buna pentru carne ";
+    if(v.bunaPentruLapte)
+        cout<<" buna pentru lapte ";
+    cout<<"cu raportul grasime greutate = "<<v.raportGrasimeGreutate;
+
+        return out;
+}
+istream &operator>>(istream &in, vaca &v) {
+    cout << "\nCitim vaca...";
+    cout << "\nRaport grasime greutate :";
+    in >> v.raportGrasimeGreutate;
+    cout << "\nBuna pentru lapte [0/1] :";
+    in >> v.bunaPentruLapte;
+    cout << "\nBuna pentru carne [0/1] :";
+    in >> v.bunaPentruCarne;
+    return in;
+}
+vaca::vaca() : mamifer("terestru", 0), raportGrasimeGreutate(0), bunaPentruCarne(0), bunaPentruLapte(0) {}
+vaca::vaca(const vaca &v) : mamifer(v), raportGrasimeGreutate(v.raportGrasimeGreutate), bunaPentruLapte(v.bunaPentruLapte), bunaPentruCarne(v.bunaPentruCarne) {}
+vaca &vaca::operator=(const vaca &v) {
+    if (this != &v) {
+        mamifer::operator=(v);
+        this->bunaPentruCarne = v.bunaPentruCarne;
+        this->bunaPentruLapte = v.bunaPentruLapte;
+        this->raportGrasimeGreutate = v.raportGrasimeGreutate;
+    }
+    return *this;
+}
+float vaca::getraportGrasimeGreutate() const {
+    return raportGrasimeGreutate;
+}
+void vaca::setraportGrasimeGreutate(float raportGrasimeGreutate) {
+    vaca::raportGrasimeGreutate = raportGrasimeGreutate;
+}
+bool vaca::isBunaPentruLapte() const {
+    return bunaPentruLapte;
+}
+void vaca::setBunaPentruLapte(bool bunaPentruLapte) {
+    vaca::bunaPentruLapte = bunaPentruLapte;
+}
+bool vaca::isBunaPentruCarne() const {
+    return bunaPentruCarne;
+}
+void vaca::setBunaPentruCarne(bool bunaPentruCarne) {
+    vaca::bunaPentruCarne = bunaPentruCarne;
+}
+vaca::vaca(float raportGrasimeGreutate, bool bunaPentruLapte, bool bunaPentruCarne) : mamifer("terestru", 0), raportGrasimeGreutate(raportGrasimeGreutate), bunaPentruLapte(bunaPentruLapte), bunaPentruCarne(bunaPentruCarne) {}
 class pisica : public mamifer {
 protected:
-    string rasa, culoareBlana;
-    float lungimeGheare, greutate;
+    string rasa;
     bool concursFrumusete;
 
 public:
+    pisica();
+    pisica(const string &ecosistem, bool carnivor, const string &rasa, bool concursFrumusete);
+    pisica(const pisica &p);
+    pisica &operator=(const pisica &p);
+
+    friend istream &operator>>(istream &in, pisica &p);
+    friend ostream &operator<<(ostream &out, const pisica &p);
+
+
+    const string &getRasa() const;
+    void setRasa(const string &rasa);
+    bool isConcursFrumusete() const;
+    void setConcursFrumusete(bool concursFrumusete);
     void miau();
+    virtual ~pisica();
 };
+void pisica::miau() {
+    cout << "MIAU!";
+}
+istream &operator>>(istream &in, pisica &p) {
+    cout << "\nCitire pisica ...";
+    cout << "\nRasa : ";
+    in >> p.rasa;
+    cout << "\nA participat la concusuri de frumusete [0/1] :";
+    in >> p.concursFrumusete;
+    return in;
+}
+ostream &operator<<(ostream &out, const pisica &p) {
+    cout << "Pisica e un mamifer terestru , carnivor de rasa " << p.rasa << "." << endl;
+    if (p.concursFrumusete)
+        cout << "A participat la concursuri de frumusete !";
+    return out;
+}
+
+pisica::pisica() : mamifer("terestru", 1), concursFrumusete(0), rasa("Anonima") {}
+pisica::pisica(const pisica &p) : mamifer(p), concursFrumusete(p.concursFrumusete), rasa(p.rasa) {}
+pisica &pisica::operator=(const pisica &p) {
+    if (this != &p) {
+        mamifer::operator=(p);
+        this->concursFrumusete = p.concursFrumusete;
+        this->rasa = p.rasa;
+    }
+    return *this;
+}
+const string &pisica::getRasa() const {
+    return rasa;
+}
+void pisica::setRasa(const string &rasa) {
+    pisica::rasa = rasa;
+}
+bool pisica::isConcursFrumusete() const {
+    return concursFrumusete;
+}
+void pisica::setConcursFrumusete(bool concursFrumusete) {
+    pisica::concursFrumusete = concursFrumusete;
+}
+pisica::~pisica() {
+}
+pisica::pisica(const string &ecosistem, bool carnivor, const string &rasa, bool concursFrumusete) : mamifer("terestru", 1), rasa(rasa), concursFrumusete(concursFrumusete) {}
 class cal : public mamifer {
 protected:
     bool armasar, aptPentruCompetitie, copiteleAranjate;
     string rasa;
 
 public:
-    void galopRapid();
-    void mancaMorcov();
-};
+    cal();
+    cal(const string &ecosistem, bool carnivor, bool armasar, bool aptPentruCompetitie, bool copiteleAranjate, const string &rasa);
+    cal(const cal &c);
+    cal &operator=(const cal &c);
 
+
+    bool isArmasar() const;
+    void setArmasar(bool armasar);
+    bool isAptPentruCompetitie() const;
+    void setAptPentruCompetitie(bool aptPentruCompetitie);
+    bool isCopiteleAranjate() const;
+    void setCopiteleAranjate(bool copiteleAranjate);
+    const string &getRasa() const;
+    void setRasa(const string &rasa);
+
+    friend istream &operator>>(istream &in, cal &c);
+    friend ostream &operator<<(ostream &out, const cal &c);
+
+
+    void mancaMorcov();
+
+    virtual ~cal();
+};
+void cal::mancaMorcov() {
+    cout << "\nCalul iti multumeste !";
+}
+istream &operator>>(istream &in, cal &c) {
+    cout << "\nCitire cal...";
+    cout << "\nArmasar[0/1] :";
+    in >> c.armasar;
+    cout << "\nApt pentru competitie [0/1] :";
+    in >> c.aptPentruCompetitie;
+    cout << "\nRasa :";
+    in >> c.rasa;
+    cout << "\nCopite aranjate [0/1] :";
+    in >> c.copiteleAranjate;
+    return in;
+}
+ostream &operator<<(ostream &out, const cal &c) {
+    out << "Calul este un mamifer terestru ierbivor ,";
+    if (c.isArmasar())
+        out << " armasar ";
+    out << "de rasa " << c.getRasa();
+    if (c.isCopiteleAranjate())
+        out << " cu copite aranjate ";
+    cout << endl;
+    if (c.isAptPentruCompetitie())
+        cout << "si apt pentru competitie fizica !";
+    else
+        cout << "si nu e apt pentru competitie fizica !";
+
+    return out;
+}
+
+
+bool cal::isArmasar() const {
+    return armasar;
+}
+void cal::setArmasar(bool armasar) {
+    cal::armasar = armasar;
+}
+bool cal::isAptPentruCompetitie() const {
+    return aptPentruCompetitie;
+}
+void cal::setAptPentruCompetitie(bool aptPentruCompetitie) {
+    cal::aptPentruCompetitie = aptPentruCompetitie;
+}
+bool cal::isCopiteleAranjate() const {
+    return copiteleAranjate;
+}
+void cal::setCopiteleAranjate(bool copiteleAranjate) {
+    cal::copiteleAranjate = copiteleAranjate;
+}
+const string &cal::getRasa() const {
+    return rasa;
+}
+void cal::setRasa(const string &rasa) {
+    cal::rasa = rasa;
+}
+cal::cal(const string &ecosistem, bool carnivor, bool armasar, bool aptPentruCompetitie, bool copiteleAranjate, const string &rasa) : mamifer("terestru", 0), armasar(armasar), aptPentruCompetitie(aptPentruCompetitie), copiteleAranjate(copiteleAranjate), rasa(rasa) {}
+cal::~cal() {
+}
+cal::cal() : mamifer("terestru", 0), armasar(0), aptPentruCompetitie(0), rasa("Anonima"), copiteleAranjate(0) {}
+cal::cal(const cal &c) : mamifer(c), aptPentruCompetitie(c.aptPentruCompetitie), rasa(c.rasa), armasar(c.armasar), copiteleAranjate(c.copiteleAranjate) {}
+cal &cal::operator=(const cal &c) {
+    if (this != &c) {
+        mamifer::operator=(c);
+        this->rasa = c.rasa;
+        this->armasar = c.armasar;
+        this->aptPentruCompetitie = c.aptPentruCompetitie;
+        this->copiteleAranjate = c.copiteleAranjate;
+    }
+    return *this;
+}
 class delfin : public mamifer {
 protected:
     bool mascul, dresat;
 
 public:
     void danseaza();
-};
+    delfin();
+    delfin(const string &ecosistem, bool carnivor, bool mascul, bool dresat);
+    delfin(const delfin &d);
+    delfin &operator=(const delfin &d);
+    friend istream &operator>>(istream &in, delfin &d);
+    friend ostream &operator<(ostream & out, const delfin &d);
 
+    bool isMascul() const;
+    void setMascul(bool mascul);
+    bool isDresat() const;
+    void setDresat(bool dresat);
+
+    ~delfin();
+};
+void delfin::danseaza() {
+    cout << "Delfinul danseaza !";
+}
+delfin::delfin() : mamifer("acvatic", 1), mascul(0), dresat(0) {}
+delfin::delfin(const string &ecosistem, bool carnivor, bool mascul, bool dresat) : mamifer("acvatic", 1), mascul(mascul), dresat(dresat) {}
+delfin::delfin(const delfin &d) : mamifer(d), mascul(d.mascul), dresat(d.dresat) {}
+istream &operator>>(istream &in, delfin &d) {
+    cout << "\nCitire delfin ...";
+    cout << "\nMascul [0/1] :";
+    in >> d.mascul;
+    cout << "\nDresat[0/1] :";
+    in >> d.dresat;
+    return in;
+}
+ostream &operator<<(ostream &out, delfin &d) {
+    cout << "Delfinul este un ";
+    if (d.isMascul())
+        cout << "mascul";
+    else
+        cout << "femela";
+    cout << " acvatic ";
+    if (d.isDresat())
+        cout << "dresat !";
+    return out;
+}
+delfin &delfin::operator=(const delfin &d) {
+    if (this != &d) {
+        mamifer::operator=(d);
+        this->dresat = d.dresat;
+        this->mascul = d.mascul;
+    }
+    return *this;
+}
+bool delfin::isMascul() const {
+    return mascul;
+}
+void delfin::setMascul(bool mascul) {
+    delfin::mascul = mascul;
+}
+bool delfin::isDresat() const {
+    return dresat;
+}
+void delfin::setDresat(bool dresat) {
+    delfin::dresat = dresat;
+}
+
+delfin::~delfin() {}
 class ornitorinc : public mamifer {
 protected:
     bool veninPuternic, electroLocatie;
@@ -305,7 +585,7 @@ public:
     void camuflareInApa();
 };
 ornitorinc::ornitorinc(const string &ecosistem, bool carnivor, bool veninPuternic, bool electroLocatie, const string &rasa) : mamifer("amfibian", 1), veninPuternic(veninPuternic), electroLocatie(electroLocatie), rasa(rasa) {}
-ornitorinc::ornitorinc():mamifer("amfibian",1),rasa("Anonim"),electroLocatie(0),veninPuternic(0) {}
+ornitorinc::ornitorinc() : mamifer("amfibian", 1), rasa("Anonim"), electroLocatie(0), veninPuternic(0) {}
 ornitorinc::ornitorinc(const ornitorinc &o) : mamifer(o), veninPuternic(o.veninPuternic), electroLocatie(o.electroLocatie), rasa(o.rasa) {}
 ornitorinc &ornitorinc::operator=(const ornitorinc &o) {
     if (this != &o) {
@@ -316,32 +596,32 @@ ornitorinc &ornitorinc::operator=(const ornitorinc &o) {
     }
     return *this;
 }
-istream &operator>>(istream &in,ornitorinc&o){
-    cout<<"\nCitirea ornitorincului ...";
-    cout<<"\nVenin puternic [0/1]:";
-    in>>o.veninPuternic;
-    cout<<"\nElectrolocatie[0/1]:";
-    in>>o.electroLocatie;
-    cout<<"\nRasa :";
-    in>>o.rasa;
+istream &operator>>(istream &in, ornitorinc &o) {
+    cout << "\nCitirea ornitorincului ...";
+    cout << "\nVenin puternic [0/1]:";
+    in >> o.veninPuternic;
+    cout << "\nElectrolocatie[0/1]:";
+    in >> o.electroLocatie;
+    cout << "\nRasa :";
+    in >> o.rasa;
     return in;
 }
-ostream &operator<<(ostream &out, const ornitorinc &o){
-    out << "\nOrnitorincul cu rasa "<<o.rasa ;
+ostream &operator<<(ostream &out, const ornitorinc &o) {
+    out << "\nOrnitorincul cu rasa " << o.rasa;
     if (o.veninPuternic)
         cout << " si cu venin puternic ";
     else
         cout << " si cu venin ";
-    cout<<"este "<<o.ecosistem;
-    if(o.isCarnivor())
-        cout<<" , carnivor ";
+    cout << "este " << o.ecosistem;
+    if (o.isCarnivor())
+        cout << " , carnivor ";
     else
-        cout<<" , nu e carnivor ";
-    cout<<" si ";
-    if(o.electroLocatie)
-        cout<<"are electrolocatie !";
+        cout << " , nu e carnivor ";
+    cout << " si ";
+    if (o.electroLocatie)
+        cout << "are electrolocatie !";
     else
-        cout<<"nu are electrolocatie !";
+        cout << "nu are electrolocatie !";
     return out;
 }
 bool ornitorinc::isVeninPuternic() const {
@@ -457,6 +737,9 @@ void cabinetVeterinar<T>::vindecaBoala() {
     cout << "\nBoala vindecata !";
 }
 int main() {
+    vaca d;
+    cin >> d;
+    cout << d;
 
 
     return 0;
