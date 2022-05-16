@@ -1,5 +1,10 @@
+#include <exception>
 #include <iostream>
 #include <list>
+#include <map>
+#include <set>
+#include <stdexcept>
+#include <vector>
 using namespace std;
 class vietate {
 protected:
@@ -251,10 +256,11 @@ class vaca : public mamifer {
 protected:
     float raportGrasimeGreutate;
     bool bunaPentruLapte, bunaPentruCarne;
+    string rasa;
 
 public:
     vaca();
-    vaca(float raportGrasimeGreutate, bool bunaPentruLapte, bool bunaPentruCarne);
+    vaca(float raportGrasimeGreutate, bool bunaPentruLapte, bool bunaPentruCarne, string rasa);
     vaca(const vaca &v);
     vaca &operator=(const vaca &v);
 
@@ -265,7 +271,8 @@ public:
 
     void pasca();
     void muu();
-
+    const string &getRasa() const;
+    void setRasa(const string &rasa);
     float getraportGrasimeGreutate() const;
     void setraportGrasimeGreutate(float raportGrasimeGreutate);
     bool isBunaPentruLapte() const;
@@ -302,14 +309,15 @@ istream &operator>>(istream &in, vaca &v) {
     in >> v.bunaPentruCarne;
     return in;
 }
-vaca::vaca() : mamifer("terestru", 0), raportGrasimeGreutate(0), bunaPentruCarne(0), bunaPentruLapte(0) {}
-vaca::vaca(const vaca &v) : mamifer(v), raportGrasimeGreutate(v.raportGrasimeGreutate), bunaPentruLapte(v.bunaPentruLapte), bunaPentruCarne(v.bunaPentruCarne) {}
+vaca::vaca() : mamifer("terestru", 0), raportGrasimeGreutate(0), bunaPentruCarne(0), bunaPentruLapte(0), rasa("Anonim") {}
+vaca::vaca(const vaca &v) : mamifer(v), raportGrasimeGreutate(v.raportGrasimeGreutate), bunaPentruLapte(v.bunaPentruLapte), bunaPentruCarne(v.bunaPentruCarne), rasa(v.rasa) {}
 vaca &vaca::operator=(const vaca &v) {
     if (this != &v) {
         mamifer::operator=(v);
         this->bunaPentruCarne = v.bunaPentruCarne;
         this->bunaPentruLapte = v.bunaPentruLapte;
         this->raportGrasimeGreutate = v.raportGrasimeGreutate;
+        this->rasa = v.rasa;
     }
     return *this;
 }
@@ -331,7 +339,13 @@ bool vaca::isBunaPentruCarne() const {
 void vaca::setBunaPentruCarne(bool bunaPentruCarne) {
     vaca::bunaPentruCarne = bunaPentruCarne;
 }
-vaca::vaca(float raportGrasimeGreutate, bool bunaPentruLapte, bool bunaPentruCarne) : mamifer("terestru", 0), raportGrasimeGreutate(raportGrasimeGreutate), bunaPentruLapte(bunaPentruLapte), bunaPentruCarne(bunaPentruCarne) {}
+const string &vaca::getRasa() const {
+    return rasa;
+}
+void vaca::setRasa(const string &rasa) {
+    vaca::rasa = rasa;
+}
+vaca::vaca(float raportGrasimeGreutate, bool bunaPentruLapte, bool bunaPentruCarne, string rasa) : mamifer("terestru", 0), raportGrasimeGreutate(raportGrasimeGreutate), bunaPentruLapte(bunaPentruLapte), bunaPentruCarne(bunaPentruCarne), rasa(rasa) {}
 class pisica : public mamifer {
 protected:
     string rasa;
@@ -500,16 +514,19 @@ cal &cal::operator=(const cal &c) {
 class delfin : public mamifer {
 protected:
     bool mascul, dresat;
+    string rasa;
 
 public:
     void danseaza();
     delfin();
-    delfin(const string &ecosistem, bool carnivor, bool mascul, bool dresat);
+    delfin(const string &ecosistem, bool carnivor, bool mascul, bool dresat, string rasa);
     delfin(const delfin &d);
     delfin &operator=(const delfin &d);
     friend istream &operator>>(istream &in, delfin &d);
     friend ostream &operator<(ostream & out, const delfin &d);
 
+    const string &getRasa() const;
+    void setRasa(const string &rasa);
     bool isMascul() const;
     void setMascul(bool mascul);
     bool isDresat() const;
@@ -520,19 +537,21 @@ public:
 void delfin::danseaza() {
     cout << "Delfinul danseaza !";
 }
-delfin::delfin() : mamifer("acvatic", 1), mascul(0), dresat(0) {}
-delfin::delfin(const string &ecosistem, bool carnivor, bool mascul, bool dresat) : mamifer("acvatic", 1), mascul(mascul), dresat(dresat) {}
-delfin::delfin(const delfin &d) : mamifer(d), mascul(d.mascul), dresat(d.dresat) {}
+delfin::delfin() : mamifer("acvatic", 1), mascul(0), dresat(0), rasa("Anonim") {}
+delfin::delfin(const string &ecosistem, bool carnivor, bool mascul, bool dresat, string rasa) : mamifer("acvatic", 1), mascul(mascul), dresat(dresat), rasa(rasa) {}
+delfin::delfin(const delfin &d) : mamifer(d), mascul(d.mascul), dresat(d.dresat), rasa(d.rasa) {}
 istream &operator>>(istream &in, delfin &d) {
     cout << "\nCitire delfin ...";
     cout << "\nMascul [0/1] :";
     in >> d.mascul;
     cout << "\nDresat[0/1] :";
     in >> d.dresat;
+    cout << "\nRasa :";
+    in >> d.rasa;
     return in;
 }
 ostream &operator<<(ostream &out, delfin &d) {
-    cout << "Delfinul este un ";
+    cout << "Delfinul de rasa " << d.getRasa() << " este un ";
     if (d.isMascul())
         cout << "mascul";
     else
@@ -547,6 +566,7 @@ delfin &delfin::operator=(const delfin &d) {
         mamifer::operator=(d);
         this->dresat = d.dresat;
         this->mascul = d.mascul;
+        this->rasa = d.rasa;
     }
     return *this;
 }
@@ -564,6 +584,12 @@ void delfin::setDresat(bool dresat) {
 }
 
 delfin::~delfin() {}
+const string &delfin::getRasa() const {
+    return rasa;
+}
+void delfin::setRasa(const string &rasa) {
+    delfin::rasa = rasa;
+}
 class ornitorinc : public mamifer {
 protected:
     bool veninPuternic, electroLocatie;
@@ -586,6 +612,9 @@ public:
     void setRasa(const string &rasa);
     void camuflareInApa();
 };
+void ornitorinc::camuflareInApa() {
+    cout << "\nOrnitorincul este ascuns acum !";
+}
 ornitorinc::ornitorinc(const string &ecosistem, bool carnivor, bool veninPuternic, bool electroLocatie, const string &rasa) : mamifer("amfibian", 1), veninPuternic(veninPuternic), electroLocatie(electroLocatie), rasa(rasa) {}
 ornitorinc::ornitorinc() : mamifer("amfibian", 1), rasa("Anonim"), electroLocatie(0), veninPuternic(0) {}
 ornitorinc::ornitorinc(const ornitorinc &o) : mamifer(o), veninPuternic(o.veninPuternic), electroLocatie(o.electroLocatie), rasa(o.rasa) {}
@@ -645,6 +674,15 @@ void ornitorinc::setRasa(const string &rasa) {
     ornitorinc::rasa = rasa;
 }
 
+class ExceptiaMea : public exception {
+public:
+    virtual const char *what() const throw() {
+
+        return "Exceptia Mea";
+    }
+
+
+} exceptiaMea;
 
 template<typename T>
 class cabinetVeterinar {
@@ -739,6 +777,15 @@ void cabinetVeterinar<T>::vindecaBoala() {
     cout << "\nBoala vindecata !";
 }
 list<mamifer *> ierbivore;
+set<string> raseCaini;
+vector<caine> caini;
+vector<vaca> vaci;
+vector<pisica> pisici;
+vector<cal> cai;
+vector<delfin> delfini;
+vector<ornitorinc> ornitorinci;
+map<int, string> raseAnimale;
+int numarRase = 0;
 
 
 class meniuInteractiv {
@@ -771,6 +818,10 @@ void meniuInteractiv::meniu() {
                         cout << "\nAti ales sa creati un caine !";
                         caine c;
                         cin >> c;
+                        caini.push_back(c);
+                        raseCaini.insert(c.getRasa());
+                        raseAnimale.insert(pair<int, string>(numarRase, c.getRasa()));
+                        numarRase++;
                         cout << "\nCaine creat cu succes !";
                         break;
                     }
@@ -778,6 +829,13 @@ void meniuInteractiv::meniu() {
                         cout << "\nAti ales sa creati o vaca !";
                         vaca c;
                         cin >> c;
+                        vaci.push_back(c);
+                        mamifer *c1 = new vaca();
+                        c1 = &c;
+                        ierbivore.push_back(c1);
+                        raseAnimale.insert(pair<int, string>(numarRase, c.getRasa()));
+
+                        numarRase++;
                         cout << "\nVaca creata cu succes !";
                         break;
                     }
@@ -785,6 +843,9 @@ void meniuInteractiv::meniu() {
                         cout << "\nAti ales sa creati o pisica !";
                         pisica c;
                         cin >> c;
+                        pisici.push_back(c);
+                        raseAnimale.insert(pair<int, string>(numarRase, c.getRasa()));
+                        numarRase++;
                         cout << "\nPisic creata cu succes !";
                         break;
                     }
@@ -792,6 +853,16 @@ void meniuInteractiv::meniu() {
                         cout << "\nAti ales sa creati un cal !";
                         cal c;
                         cin >> c;
+                        cai.push_back(c);
+                        raseAnimale.insert(pair<int, string>(numarRase, c.getRasa()));
+
+
+                        mamifer *c1 = new cal();
+                        c1 = &c;
+                        ierbivore.push_back(c1);
+                        numarRase++;
+
+
                         cout << "\nCal creat cu succes !";
                         break;
                     }
@@ -799,13 +870,19 @@ void meniuInteractiv::meniu() {
                         cout << "\nAti ales sa creati un delfin !";
                         delfin c;
                         cin >> c;
+                        delfini.push_back(c);
+                        raseAnimale.insert(pair<int, string>(numarRase, c.getRasa()));
+                        numarRase++;
                         cout << "\nDelfin creat cu succes !";
                         break;
                     }
                     case 6: {
                         cout << "\nAti ales sa creati un ornitorinc !";
-                        delfin c;
+                        ornitorinc c;
                         cin >> c;
+                        ornitorinci.push_back(c);
+                        raseAnimale.insert(pair<int, string>(numarRase, c.getRasa()));
+                        numarRase++;
                         cout << "\nOrnitorinc creat cu succes !";
                         break;
                     }
@@ -818,58 +895,148 @@ void meniuInteractiv::meniu() {
                     }
                 }
 
-
                 break;
             }
                 //afisare
             case 2: {
-                cout << "Ce doriti sa afisati ?\n1. Caine\n2. Vaca\n3. Pisica\n4. Cal\n5. Delfin\n6. Ornitorinc\n7. Intoarcere la meniul principal";
+                cout << "Ce doriti sa afisati ?\n1. Caine\n2. Vaca\n3. Pisica\n4. Cal\n5. Delfin\n6. Ornitorinc\n7. Afisati toate rasele de caini\n8. Afisati toate rasele create\n9. Afisati toate mamiferele ierbivore create\n10. Intoarcere la meniul principal\n";
                 int comanda1;
                 cin >> comanda1;
                 switch (comanda1) {
                     case 1: {
-                        cout << "\nAti ales sa afisati un caine !";
-                        caine c;
-                        cin >> c;
-                        cout << "\nCaine afisat cu succes !";
+                        try {
+                            if (!caini.size())
+                                throw exceptiaMea;
+                            cout << "\nAti ales sa afisati un caine !\nCe caine doriti sa afisati ?\n";
+                            for (int i = 0; i < caini.size(); i++)
+                                cout << "\nCainele cu rasa " << i + 1 << ". " << caini[i].getRasa() << endl;
+                            int y;
+                            cin >> y;
+                            cout << caini[y - 1];
+
+                            cout << "\nCaine afisat cu succes !";
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista niciun caine creat !";
+                        }
+
                         break;
                     }
                     case 2: {
-                        cout << "\nAti ales sa afisati o vaca !";
-                        vaca c;
-                        cin >> c;
-                        cout << "\nVaca afisata cu succes !";
+                        try {
+                            if (!vaci.size())
+                                throw exceptiaMea;
+                            cout << "\nAti ales sa afisati o vaca !\nCe vaca doriti sa afisati ?\n";
+                            for (int i = 0; i < caini.size(); i++)
+                                cout << "\nVaca cu rasa " << i + 1 << ". " << vaci[i].getRasa() << endl;
+                            int y;
+                            cin >> y;
+                            cout << vaci[y - 1];
+
+                            cout << "\nVaca afisata cu succes !";
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista nicio vaca creata !";
+                        }
+
                         break;
                     }
                     case 3: {
-                        cout << "\nAti ales sa afisati o pisica !";
-                        pisica c;
-                        cin >> c;
-                        cout << "\nPisic afisata cu succes !";
+                        try {
+                            if (!pisici.size())
+                                throw exceptiaMea;
+                            cout << "\nAti ales sa afisati o pisica !\nCe pisica doriti sa afisati ?\n";
+                            for (int i = 0; i < pisici.size(); i++)
+                                cout << "\nPisica cu rasa " << i + 1 << ". " << pisici[i].getRasa() << endl;
+                            int y;
+                            cin >> y;
+                            cout << pisici[y - 1];
+
+                            cout << "\nPisica afisata cu succes !";
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista nicio pisica creata !";
+                        }
+
                         break;
                     }
                     case 4: {
-                        cout << "\nAti ales sa afisati un cal !";
-                        cal c;
-                        cin >> c;
-                        cout << "\nCal afisat cu succes !";
+                        try {
+                            if (!cai.size())
+                                throw exceptiaMea;
+                            cout << "\nAti ales sa afisati un cal !\nCe cal doriti sa afisati ?\n";
+                            for (int i = 0; i < cai.size(); i++)
+                                cout << "\nCalul cu rasa " << i + 1 << ". " << cai[i].getRasa() << endl;
+                            int y;
+                            cin >> y;
+                            cout << caini[y - 1];
+
+                            cout << "\nCal afisat cu succes !";
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista niciun cal creat !";
+                        }
                         break;
                     }
                     case 5: {
-                        cout << "\nAti ales sa afisati un delfin !";
-                        delfin c;
-                        cin >> c;
-                        cout << "\nDelfin afisat cu succes !";
+                        try {
+                            if (!delfini.size())
+                                throw exceptiaMea;
+                            cout << "\nAti ales sa afisati un delfin !\nCe delfin doriti sa afisati ?\n";
+                            for (int i = 0; i < delfini.size(); i++)
+                                cout << "\nDelfinul cu rasa " << i + 1 << ". " << delfini[i].getRasa() << endl;
+                            int y;
+                            cin >> y;
+                            cout << delfini[y - 1];
+
+                            cout << "\nDelfin afisat cu succes !";
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista niciun delfin creat !";
+                        }
+
                         break;
                     }
                     case 6: {
-                        cout << "\nAti ales sa afisati un ornitorinc !";
-                        delfin c;
-                        cin >> c;
-                        cout << "\nOrnitorinc afisat cu succes !";
+                        try {
+                            if (!delfini.size())
+                                throw exceptiaMea;
+                            cout << "\nAti ales sa afisati un ornitorinc !\nCe ornitorinc doriti sa afisati ?\n";
+                            for (int i = 0; i < ornitorinci.size(); i++)
+                                cout << "\nOrnitorincul cu rasa " << i + 1 << ". " << ornitorinci[i].getRasa() << endl;
+                            int y;
+                            cin >> y;
+                            cout << ornitorinci[y - 1];
+
+                            cout << "\nOrnitorinc afisat cu succes !";
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista niciun ornitorinc creat !";
+                        }
                         break;
                     }
                     case 7: {
+                        for(auto x:raseCaini)
+                            cout<<x<<" ";
+
+
+                        break;
+                    };
+                    case 8:{
+                        for(auto x:raseAnimale)
+                            cout<<x.first+1<<". "<<x.second<<endl;
+                        break ;
+                    }
+                    case 9:{
+                        for(auto x:ierbivore)
+                            if (vaca *cal2 = dynamic_cast<vaca *>(x))
+                             cout<<cal2->getRasa();
+                        else if (cal *cal2 = dynamic_cast<cal *>(x))
+                            cout<<cal2->getRasa();
+
+                        break;
+                    }
+                    case 10: {
                         break;
                     }
                     default: {
@@ -879,46 +1046,145 @@ void meniuInteractiv::meniu() {
 
                     break;
                 }
-                    //actiuni
-                case 3: {
-                    break;
+            }
+            break ;
+                //actiuni
+            case 3: {
+                cout << "Actiunile animalelor ...\n1. Animalele ierbivore\n2. Toate animalele\n";
+                int comanda1;
+                cin >> comanda1;
+                switch (comanda1) {
+                        //ierbivore
+                    case 1: {
+                        cout << "\nAti ales actiunile animalelor ierbivore !";
+                        cout << "\nDoriti actiunile de la :\n1. Cal\n2. Vaca \n";
+                        int k;
+                        cin >> k;
+                        switch (k) {
+                            case 1: {
+                                try {
+                                    if (!cai.size())
+                                        throw runtime_error("Nu exista cai");
+                                    for (auto x: ierbivore)
+                                        if (cal *cal2 = dynamic_cast<cal *>(x)) {
+                                            cout << "\nCalul a mancat morcov!";
+                                            cal2->mancaMorcov();
+                                        }
+                                } catch (...) {
+                                    cout << "\nNu exista cai!";
+                                }
+
+
+                                break;
+                            }
+                            case 2: {
+                                try {
+                                    if (!vaci.size())
+                                        throw runtime_error("Nu exista vaci");
+                                    for (auto x: ierbivore)
+                                        if (vaca *vaca2 = dynamic_cast<vaca *>(x)) {
+                                            vaca2->muu();
+                                        }
+                                } catch (...) {
+                                    cout << "\nNu exista vaci!";
+                                }
+                                break;
+                            }
+                            default: {
+                                cout << "Ati intodus o varianta gresita !";
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                        //toate animalele
+                    case 2: {
+                        cout << "\nLa ce animal doriti sa vedeti actiunile ?\n1. Caine\n2. Vaca\n3. Pisica\n4. Cal\n5. Delfin\n6. Ornitorinc\n7.Inapoi \n";
+                        int k;
+                        cin >> k;
+                        switch (k) {
+                            case 1: {
+                                caine c;
+                                c.latra();
+                                break;
+                            }
+                            case 2: {
+                                vaca v;
+                                v.muu();
+                                break;
+                            }
+                            case 3: {
+                                pisica p;
+                                p.miau();
+                                break;
+                            }
+                            case 4: {
+                                cal c;
+                                c.mancaMorcov();
+                                break;
+                            }
+                            case 5: {
+                                delfin d;
+                                d.danseaza();
+                                break;
+                            }
+                            case 6: {
+                                ornitorinc o;
+                                o.camuflareInApa();
+                                break;
+                            }
+                            case 7: {
+                                break;
+                            }
+                            default: {
+                                cout << "\nAti introdus o varianta gresita !";
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    default: {
+                        cout << "Ati introdus o varianta gresita !";
+                        break;
+                    }
                 }
-                    //actualizare
-                case 4: {
-                    break;
-                }
-                    //sterge
-                case 5: {
-                    break;
-                }
-                    //Adauga animal la veterinar
-                case 6: {
-                    break;
-                }
-                    //iesire
-                case 7: {
-                    k = 0;
-                    break;
-                } break;
-                default: {
-                    cout << "\nAti introdus o varianta gresita !";
-                    break;
-                }
+                break;
+            }
+                //actualizare
+            case 4: {
+                break;
+            }
+                //sterge
+            case 5: {
+                break;
+            }
+                //Adauga animal la veterinar
+            case 6: {
+                break;
+            }
+                //iesire
+            case 7: {
+                k = 0;
+                break;
+            } break;
+            default: {
+                cout << "\nAti introdus o varianta gresita !";
+                break;
             }
         }
     }
 }
+
 meniuInteractiv *meniuInteractiv::obiect = 0;
 int main() {
 
-    mamifer *cal1 = new cal();
     mamifer *delfin1 = new delfin();
-    ierbivore.push_back(cal1);
     ierbivore.push_back(delfin1);
 
-    /*for(auto x:ierbivore)
-        if(cal *cal2=dynamic_cast<cal*>(x))
-            cal2->mancaMorcov();*/
+
+    for (auto x: ierbivore)
+        if (vaca *cal2 = dynamic_cast<vaca *>(x))
+            cal2->muu();
     meniuInteractiv *meniulMeu = meniulMeu->getInstance();
     meniulMeu->meniu();
 
