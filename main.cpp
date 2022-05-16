@@ -1028,6 +1028,7 @@ void meniuInteractiv::meniu() {
                         break;
                     }
                     case 9: {
+
                         for (auto x: ierbivore)
                             if (vaca *cal2 = dynamic_cast<vaca *>(x))
                                 cout << cal2->getRasa();
@@ -1406,7 +1407,7 @@ void meniuInteractiv::meniu() {
                             for (int i = 0; i < caini.size(); i++)
                                 cout << i + 1 << ". pentru cainile cu rasa " << caini[i].getRasa() << endl;
                             int k;
-                            cin>>k;
+                            cin >> k;
                             caini.erase(caini.begin() + k - 1);
                             break;
                         } catch (ExceptiaMea &e) {
@@ -1423,7 +1424,7 @@ void meniuInteractiv::meniu() {
                             for (int i = 0; i < vaci.size(); i++)
                                 cout << i + 1 << ". pentru vaca cu rasa " << vaci[i].getRasa() << endl;
                             int k;
-                            cin>>k;
+                            cin >> k;
                             vaci.erase(vaci.begin() + k - 1);
                             break;
                         } catch (ExceptiaMea &e) {
@@ -1440,7 +1441,7 @@ void meniuInteractiv::meniu() {
                             for (int i = 0; i < pisici.size(); i++)
                                 cout << i + 1 << ". pentru pisica cu rasa " << pisici[i].getRasa() << endl;
                             int k;
-                            cin>>k;
+                            cin >> k;
                             pisici.erase(pisici.begin() + k - 1);
                             break;
                         } catch (ExceptiaMea &e) {
@@ -1457,7 +1458,7 @@ void meniuInteractiv::meniu() {
                             for (int i = 0; i < cai.size(); i++)
                                 cout << i + 1 << ". pentru calul cu rasa " << cai[i].getRasa() << endl;
                             int k;
-                            cin>>k;
+                            cin >> k;
                             cai.erase(cai.begin() + k - 1);
                             break;
                         } catch (ExceptiaMea &e) {
@@ -1474,7 +1475,7 @@ void meniuInteractiv::meniu() {
                             for (int i = 0; i < delfini.size(); i++)
                                 cout << i + 1 << ". pentru delfinul cu rasa " << delfini[i].getRasa() << endl;
                             int k;
-                            cin>>k;
+                            cin >> k;
                             delfini.erase(delfini.begin() + k - 1);
                             break;
                         } catch (ExceptiaMea &e) {
@@ -1491,7 +1492,7 @@ void meniuInteractiv::meniu() {
                             for (int i = 0; i < ornitorinci.size(); i++)
                                 cout << i + 1 << ". pentru ornitorincul cu rasa " << ornitorinci[i].getRasa() << endl;
                             int k;
-                            cin>>k;
+                            cin >> k;
                             ornitorinci.erase(ornitorinci.begin() + k - 1);
                             break;
                         } catch (ExceptiaMea &e) {
@@ -1519,47 +1520,102 @@ void meniuInteractiv::meniu() {
                 cin >> k;
                 switch (k) {
                     case 1: {
-                        caine c;
-                        cabinetVeterinar<caine> cv;
-                        cv.adaugareListaPacienti();
-                        cv.vindecaBoala();
+                        try {
+                            if (!caini.size())
+                                throw exceptiaMea;
+                            caine c;
+                            cabinetVeterinar<caine> cv;
+                            cv.adaugareListaPacienti();
+                            cv.vindecaBoala();
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista niciun caine creat !";
+                        }
+
 
                         break;
                     }
                     case 2: {
-                        vaca c;
-                        cabinetVeterinar<vaca> cv;
-                        cv.adaugareListaPacienti();
-                        cv.vindecaBoala();
+                        try {
+                            if (!vaci.size())
+                                throw exceptiaMea;
+                            vaca c;
+                            cabinetVeterinar<vaca> cv;
+                            cv.adaugareListaPacienti();
+                            cv.vindecaBoala();
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista nicio vaca creata !";
+                        }
                         break;
                     }
+
                     case 3: {
-                        pisica c;
-                        cabinetVeterinar<pisica> cv;
-                        cv.adaugareListaPacienti();
-                        cv.vindecaBoala();
+
+
+                        try {
+                            if (!pisici.size())
+                                throw exceptiaMea;
+                            pisica c;
+                            cabinetVeterinar<pisica> cv;
+                            cv.adaugareListaPacienti();
+                            cv.vindecaBoala();
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista nicio pisica creata !";
+                        }
+
                         break;
                     }
                     case 4: {
-                        cal c;
-                        cabinetVeterinar<cal> cv;
-                        cv.adaugareListaPacienti();
-                        cv.vindecaBoala();
+
+
+                        try {
+                            if (!cai.size())
+                                throw exceptiaMea;
+                            cal c;
+                            cabinetVeterinar<cal> cv;
+                            cv.adaugareListaPacienti();
+                            cv.vindecaBoala();
+                            break;
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista niciun cal creat !";
+                        }
+
                         break;
                     }
                     case 5: {
-                        delfin c;
-                        cabinetVeterinar<delfin> cv;
-                        cv.adaugareListaPacienti();
-                        cv.vindecaBoala();
+
+
+                        try {
+                            if (!delfini.size())
+                                throw exceptiaMea;
+                            delfin c;
+                            cabinetVeterinar<delfin> cv;
+                            cv.adaugareListaPacienti();
+                            cv.vindecaBoala();
+                            break;
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista niciun delfin creat !";
+                        }
 
                         break;
                     }
                     case 6: {
-                        ornitorinc c;
-                        cabinetVeterinar<ornitorinc> cv;
-                        cv.adaugareListaPacienti();
-                        cv.vindecaBoala();
+                        try {
+                            if (!ornitorinci.size())
+                                throw exceptiaMea;
+                            ornitorinc c;
+                            cabinetVeterinar<ornitorinc> cv;
+                            cv.adaugareListaPacienti();
+                            cv.vindecaBoala();
+                            break;
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista niciun ornitorinc creat !";
+                        }
                         break;
                     }
                     case 7: {
@@ -1574,7 +1630,7 @@ void meniuInteractiv::meniu() {
             }
                 //iesire
             case 7: {
-                k=0;
+                k = 0;
 
                 break;
             } break;
@@ -1588,14 +1644,6 @@ void meniuInteractiv::meniu() {
 
 meniuInteractiv *meniuInteractiv::obiect = 0;
 int main() {
-
-    mamifer *delfin1 = new delfin();
-    ierbivore.push_back(delfin1);
-
-
-    for (auto x: ierbivore)
-        if (vaca *cal2 = dynamic_cast<vaca *>(x))
-            cal2->muu();
     meniuInteractiv *meniulMeu = meniulMeu->getInstance();
     meniulMeu->meniu();
 
