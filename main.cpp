@@ -1016,23 +1016,23 @@ void meniuInteractiv::meniu() {
                         break;
                     }
                     case 7: {
-                        for(auto x:raseCaini)
-                            cout<<x<<" ";
+                        for (auto x: raseCaini)
+                            cout << x << " ";
 
 
                         break;
                     };
-                    case 8:{
-                        for(auto x:raseAnimale)
-                            cout<<x.first+1<<". "<<x.second<<endl;
-                        break ;
+                    case 8: {
+                        for (auto x: raseAnimale)
+                            cout << x.first + 1 << ". " << x.second << endl;
+                        break;
                     }
-                    case 9:{
-                        for(auto x:ierbivore)
+                    case 9: {
+                        for (auto x: ierbivore)
                             if (vaca *cal2 = dynamic_cast<vaca *>(x))
-                             cout<<cal2->getRasa();
-                        else if (cal *cal2 = dynamic_cast<cal *>(x))
-                            cout<<cal2->getRasa();
+                                cout << cal2->getRasa();
+                            else if (cal *cal2 = dynamic_cast<cal *>(x))
+                                cout << cal2->getRasa();
 
                         break;
                     }
@@ -1046,8 +1046,7 @@ void meniuInteractiv::meniu() {
 
                     break;
                 }
-            }
-            break ;
+            } break;
                 //actiuni
             case 3: {
                 cout << "Actiunile animalelor ...\n1. Animalele ierbivore\n2. Toate animalele\n";
@@ -1152,19 +1151,431 @@ void meniuInteractiv::meniu() {
             }
                 //actualizare
             case 4: {
+                cout << "\nLa ce animal doriti sa actualizati datele ?\n1. Caine\n2. Vaca\n3. Pisica\n4. Cal\n5. Delfin\n6. Ornitorinc\n7.Inapoi \n";
+                int k;
+                cin >> k;
+                switch (k) {
+                        //actualizre caine
+                    case 1: {
+                        cout << "\nLa ce caine doriti sa actualizati datele ?:\n";
+                        for (int i = 0; i < caini.size(); i++)
+                            cout << i + 1 << ". pentru cainele cu rasa " << caini[i].getRasa() << endl;
+                        int k;
+                        cin >> k;
+                        cout << "\nCe doriti sa actualizati ?\n1. rasa\n2. Apt pentru concursuri canine\n3.Intoarcere la meniul principal\n";
+                        int comanda3;
+                        cin >> comanda3;
+                        switch (comanda3) {
+                            case 1: {
+                                string rasa1;
+                                cout << "\nRasa noua :";
+                                cin >> rasa1;
+                                caini[k - 1].setRasa(rasa1);
+                                cout << "\nRasa actualizata cu succes !";
+                                break;
+                            }
+                            case 2: {
+                                caini[k - 1].setAptPentruConcursuriCanine(!caini[k - 1].isAptPentruConcursuriCanine());
+                                cout << "\nActualizarea a avut succes !";
+                                break;
+                            }
+                            case 3: {
+                                break;
+                            }
+                            default: {
+                                cout << "\nAti introdus o varianta gresita !";
+                                break;
+                            }
+                        }
+
+                        break;
+                    }
+                        //actualizare vaca
+                    case 2: {
+                        cout << "\nLa ce vaca doriti sa actualizati datele ?:\n";
+                        for (int i = 0; i < vaci.size(); i++)
+                            cout << i + 1 << ". pentru vaca cu rasa " << vaci[i].getRasa() << endl;
+                        int k;
+                        cin >> k;
+                        cout << "\nCe doriti sa actualizati la vaca\n1. Buna pentru lapte\n2. Buna pentru carne\n3. rasa";
+                        int comanda2;
+                        cin >> comanda2;
+                        switch (comanda2) {
+                            case 1: {
+                                vaci[k - 1].setBunaPentruLapte(!vaci[k - 1].isBunaPentruLapte());
+                                cout << "\nActualizarea a avut succes !";
+                                break;
+                            }
+                            case 2: {
+                                vaci[k - 1].setBunaPentruCarne(!vaci[k - 1].isBunaPentruCarne());
+                                cout << "\nActualizarea a avut succes !";
+                                break;
+                            }
+                            case 3: {
+                                string rasa1;
+                                cout << "\nRasa noua : ";
+                                cin >> rasa1;
+                                vaci[k - 1].setRasa(rasa1);
+                                cout << "\nActualizarea a avut succes !";
+                                break;
+                            }
+                            default: {
+                                break;
+                            }
+                        }
+
+                        break;
+                    }
+                        //act pisica
+                    case 3: {
+                        cout << "\nLa ce pisica doriti sa actualizati datele ?:\n";
+                        for (int i = 0; i < pisici.size(); i++)
+                            cout << i + 1 << ". pentru pisica cu rasa " << pisici[i].getRasa() << endl;
+                        int k;
+                        cin >> k;
+                        cout << "\nCe doriti sa actualizati ?\n1. rasa\n2. A fost la concursuri de frumusete \n3.Intoarcere la meniul principal\n";
+                        int comanda3;
+                        cin >> comanda3;
+                        switch (comanda3) {
+                            case 1: {
+                                string rasa1;
+                                cout << "\nRasa noua :";
+                                cin >> rasa1;
+                                pisici[k - 1].setRasa(rasa1);
+                                cout << "\nRasa actualizata cu succes !";
+                                break;
+                            }
+                            case 2: {
+                                pisici[k - 1].setConcursFrumusete(!pisici[k - 1].isConcursFrumusete());
+                                cout << "\nActualizarea a avut succes !";
+                                break;
+                            }
+                            case 3: {
+                                break;
+                            }
+                            default: {
+                                cout << "\nAti introdus o varianta gresita !";
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    case 4: {
+                        cout << "\nLa ce cal doriti sa actualizati datele ?:\n";
+                        for (int i = 0; i < cai.size(); i++)
+                            cout << i + 1 << ". pentru calul cu rasa " << cai[i].getRasa() << endl;
+                        int k;
+                        cin >> k;
+                        cout << "\nCe doriti sa actualizati ?\n1. rasa\n2. Armasar\n3. Apt pentru competitie \n4. Copitele aranjate\n5.Intoarcere la meniul principal\n";
+                        int comanda3;
+                        cin >> comanda3;
+                        switch (comanda3) {
+                            case 1: {
+                                string rasa1;
+                                cout << "\nRasa noua :";
+                                cin >> rasa1;
+                                cai[k - 1].setRasa(rasa1);
+                                cout << "\nRasa actualizata cu succes !";
+                                break;
+                            }
+                            case 2: {
+                                cai[k - 1].setArmasar(!cai[k - 1].isArmasar());
+                                cout << "\nActualizarea a avut succes !";
+                                break;
+                            }
+                            case 3: {
+                                cai[k - 1].setAptPentruCompetitie(!cai[k - 1].isAptPentruCompetitie());
+                                cout << "\nActualizarea a avut succes !";
+                                break;
+                            }
+
+                            case 4: {
+                                cai[k - 1].setCopiteleAranjate(!cai[k - 1].isCopiteleAranjate());
+                                cout << "\nActualizarea a avut succes !";
+                                break;
+                            }
+                            case 5: {
+                                break;
+                            }
+                            default: {
+                                cout << "\nAti introdus o varianta gresita !";
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    case 5: {
+                        cout << "\nLa ce delfin doriti sa actualizati datele ?:\n";
+                        for (int i = 0; i < delfini.size(); i++)
+                            cout << i + 1 << ". pentru delfinul cu rasa " << delfini[i].getRasa() << endl;
+                        int k;
+                        cin >> k;
+                        cout << "\nCe doriti sa actualizati ?\n1. rasa\n2. Mascul\n3. Dresat \n4. Intoarcere la meniul principal\n";
+                        int comanda3;
+                        cin >> comanda3;
+                        switch (comanda3) {
+                            case 1: {
+                                string rasa1;
+                                cout << "\nRasa noua :";
+                                cin >> rasa1;
+                                delfini[k - 1].setRasa(rasa1);
+                                cout << "\nRasa actualizata cu succes !";
+                                break;
+                            }
+                            case 2: {
+                                delfini[k - 1].setMascul(!delfini[k - 1].isMascul());
+                                cout << "\nActualizarea a avut succes !";
+                                break;
+                            }
+                            case 3: {
+                                delfini[k - 1].setDresat(!delfini[k - 1].isDresat());
+                                cout << "\nActualizarea a avut succes !";
+                                break;
+                            }
+                            case 4: {
+                                break;
+                            }
+                            default: {
+                                cout << "\nAti introdus o varianta gresita !";
+
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    case 6: {
+                        cout << "\nLa ce ornitorinc doriti sa actualizati datele ?:\n";
+                        for (int i = 0; i < ornitorinci.size(); i++)
+                            cout << i + 1 << ". pentru ornitorincul cu rasa " << ornitorinci[i].getRasa() << endl;
+                        int k;
+                        cin >> k;
+                        cout << "\nCe doriti sa actualizati ?\n1. rasa\n2. Venin puternic\n3. Electrolocatie\n4. Intoarcere la meniul principal\n";
+                        int comanda3;
+                        cin >> comanda3;
+                        switch (comanda3) {
+                            case 1: {
+                                string rasa1;
+                                cout << "\nRasa noua :";
+                                cin >> rasa1;
+                                ornitorinci[k - 1].setRasa(rasa1);
+                                cout << "\nRasa actualizata cu succes !";
+                                break;
+                            }
+                            case 2: {
+                                ornitorinci[k - 1].setVeninPuternic(!ornitorinci[k - 1].isVeninPuternic());
+                                cout << "\nActualizarea a avut succes !";
+                                break;
+                            }
+                            case 3: {
+                                ornitorinci[k - 1].setElectroLocatie(!ornitorinci[k - 1].isElectroLocatie());
+                                cout << "\nActualizarea a avut succes !";
+                                break;
+                            }
+                            case 4: {
+                                break;
+                            }
+                            default: {
+                                cout << "\nAti introdus o varianta gresita !";
+
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    case 7: {
+                        break;
+                    }
+                    default: {
+                        cout << "\nAti introdus o varianta gresita !";
+                        break;
+                    }
+                }
                 break;
             }
                 //sterge
             case 5: {
+                cout << "\nCe animal doriti sa stergeti ?\n1. Caine\n2. Vaca\n3. Pisica\n4. Cal\n5. Delfin\n6. Ornitorinc\n7. Intoarcere la meniul principal";
+                int comand1;
+                cin >> comand1;
+                switch (comand1) {
+                    case 1: {
+                        try {
+                            if (!caini.size())
+                                throw exceptiaMea;
+                            cout << "\nCe caine doriti sa stergeti ?\n";
+                            for (int i = 0; i < caini.size(); i++)
+                                cout << i + 1 << ". pentru cainile cu rasa " << caini[i].getRasa() << endl;
+                            int k;
+                            cin>>k;
+                            caini.erase(caini.begin() + k - 1);
+                            break;
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista niciun caine creat !";
+                        }
+                        break;
+                    }
+                    case 2: {
+                        try {
+                            if (!vaci.size())
+                                throw exceptiaMea;
+                            cout << "\nCe vaca doriti sa stergeti ?\n";
+                            for (int i = 0; i < vaci.size(); i++)
+                                cout << i + 1 << ". pentru vaca cu rasa " << vaci[i].getRasa() << endl;
+                            int k;
+                            cin>>k;
+                            vaci.erase(vaci.begin() + k - 1);
+                            break;
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista nicio vaca creata !";
+                        }
+                        break;
+                    }
+                    case 3: {
+                        try {
+                            if (!pisici.size())
+                                throw exceptiaMea;
+                            cout << "\nCe pisica doriti sa stergeti ?\n";
+                            for (int i = 0; i < pisici.size(); i++)
+                                cout << i + 1 << ". pentru pisica cu rasa " << pisici[i].getRasa() << endl;
+                            int k;
+                            cin>>k;
+                            pisici.erase(pisici.begin() + k - 1);
+                            break;
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista nicio pisica creata !";
+                        }
+                        break;
+                    }
+                    case 4: {
+                        try {
+                            if (!cai.size())
+                                throw exceptiaMea;
+                            cout << "\nCe cal doriti sa stergeti ?\n";
+                            for (int i = 0; i < cai.size(); i++)
+                                cout << i + 1 << ". pentru calul cu rasa " << cai[i].getRasa() << endl;
+                            int k;
+                            cin>>k;
+                            cai.erase(cai.begin() + k - 1);
+                            break;
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista niciun cal creat !";
+                        }
+                        break;
+                    }
+                    case 5: {
+                        try {
+                            if (!delfini.size())
+                                throw exceptiaMea;
+                            cout << "\nCe delfin doriti sa stergeti ?\n";
+                            for (int i = 0; i < delfini.size(); i++)
+                                cout << i + 1 << ". pentru delfinul cu rasa " << delfini[i].getRasa() << endl;
+                            int k;
+                            cin>>k;
+                            delfini.erase(delfini.begin() + k - 1);
+                            break;
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista niciun delfin creat !";
+                        }
+                        break;
+                    }
+                    case 6: {
+                        try {
+                            if (!ornitorinci.size())
+                                throw exceptiaMea;
+                            cout << "\nCe ornitorinc doriti sa stergeti ?\n";
+                            for (int i = 0; i < ornitorinci.size(); i++)
+                                cout << i + 1 << ". pentru ornitorincul cu rasa " << ornitorinci[i].getRasa() << endl;
+                            int k;
+                            cin>>k;
+                            ornitorinci.erase(ornitorinci.begin() + k - 1);
+                            break;
+                        } catch (ExceptiaMea &e) {
+
+                            cout << "\nNu exista niciun ornitorinc creat !";
+                        }
+                        break;
+                    }
+                    case 7: {
+                        break;
+                    }
+                    default: {
+                        cout << "\nAti introdus o varianta gresita !";
+                        break;
+                    }
+                }
+
+
                 break;
             }
                 //Adauga animal la veterinar
             case 6: {
+                cout << "\nCe animal doriti sa duceti la veterinar ?\n1. Caine\n2. Vaca\n3. Pisica\n4. Cal\n5. Delfin\n6. Ornitorinc\n7.Inapoi \n";
+                int k;
+                cin >> k;
+                switch (k) {
+                    case 1: {
+                        caine c;
+                        cabinetVeterinar<caine> cv;
+                        cv.adaugareListaPacienti();
+                        cv.vindecaBoala();
+
+                        break;
+                    }
+                    case 2: {
+                        vaca c;
+                        cabinetVeterinar<vaca> cv;
+                        cv.adaugareListaPacienti();
+                        cv.vindecaBoala();
+                        break;
+                    }
+                    case 3: {
+                        pisica c;
+                        cabinetVeterinar<pisica> cv;
+                        cv.adaugareListaPacienti();
+                        cv.vindecaBoala();
+                        break;
+                    }
+                    case 4: {
+                        cal c;
+                        cabinetVeterinar<cal> cv;
+                        cv.adaugareListaPacienti();
+                        cv.vindecaBoala();
+                        break;
+                    }
+                    case 5: {
+                        delfin c;
+                        cabinetVeterinar<delfin> cv;
+                        cv.adaugareListaPacienti();
+                        cv.vindecaBoala();
+
+                        break;
+                    }
+                    case 6: {
+                        ornitorinc c;
+                        cabinetVeterinar<ornitorinc> cv;
+                        cv.adaugareListaPacienti();
+                        cv.vindecaBoala();
+                        break;
+                    }
+                    case 7: {
+                        break;
+                    }
+                    default: {
+                        cout << "\nAti introdus o varianta gresita !";
+                        break;
+                    }
+                }
                 break;
             }
                 //iesire
             case 7: {
-                k = 0;
+                k=0;
+
                 break;
             } break;
             default: {
