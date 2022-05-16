@@ -925,7 +925,7 @@ void meniuInteractiv::meniu() {
                     case 2: {
                         try {
                             if (!vaci.size())
-                                throw exceptiaMea;
+                                throw 0;
                             cout << "\nAti ales sa afisati o vaca !\nCe vaca doriti sa afisati ?\n";
                             for (int i = 0; i < caini.size(); i++)
                                 cout << "\nVaca cu rasa " << i + 1 << ". " << vaci[i].getRasa() << endl;
@@ -934,7 +934,7 @@ void meniuInteractiv::meniu() {
                             cout << vaci[y - 1];
 
                             cout << "\nVaca afisata cu succes !";
-                        } catch (ExceptiaMea &e) {
+                        } catch (...) {
 
                             cout << "\nNu exista nicio vaca creata !";
                         }
