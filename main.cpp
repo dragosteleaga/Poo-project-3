@@ -95,7 +95,7 @@ public:
     bool isCarnivor() const;
     void setCarnivor(bool carnivor);
 
-    ~mamifer();
+    virtual ~mamifer();
 };
 mamifer::mamifer() : vietate(), carnivor(0) {}
 mamifer::mamifer(string ecosistem, bool carnivor) : vietate(ecosistem), carnivor(carnivor) {}
@@ -168,12 +168,14 @@ void mamifer::mananca() {
 void mamifer::vaneaza() {
     cout << "\nMamiferul a iesit la vanatoare";
 }
-mamifer::~mamifer() {}
+
 bool mamifer::isCarnivor() const {
     return carnivor;
 }
 void mamifer::setCarnivor(bool carnivor) {
     this->carnivor = carnivor;
+}
+mamifer::~mamifer() {
 }
 class caine : public mamifer {
 protected:
@@ -275,20 +277,20 @@ public:
     }
 };
 void vaca::pasca() {
-    cout<<"\nVaca este fericita !";
+    cout << "\nVaca este fericita !";
 }
 void vaca::muu() {
-    cout<<"\nMUUUU";
+    cout << "\nMUUUU";
 }
-ostream &operator<<(ostream &out, const vaca &v){
-    cout<<"\nVaca este un animal terestru ierbivor ";
-    if(v.bunaPentruCarne)
-        cout<<" buna pentru carne ";
-    if(v.bunaPentruLapte)
-        cout<<" buna pentru lapte ";
-    cout<<"cu raportul grasime greutate = "<<v.raportGrasimeGreutate;
+ostream &operator<<(ostream &out, const vaca &v) {
+    cout << "\nVaca este un animal terestru ierbivor ";
+    if (v.bunaPentruCarne)
+        cout << " buna pentru carne ";
+    if (v.bunaPentruLapte)
+        cout << " buna pentru lapte ";
+    cout << "cu raportul grasime greutate = " << v.raportGrasimeGreutate;
 
-        return out;
+    return out;
 }
 istream &operator>>(istream &in, vaca &v) {
     cout << "\nCitim vaca...";
@@ -736,10 +738,189 @@ template<typename T>
 void cabinetVeterinar<T>::vindecaBoala() {
     cout << "\nBoala vindecata !";
 }
+list<mamifer *> ierbivore;
+
+
+class meniuInteractiv {
+private:
+    static meniuInteractiv *obiect;
+    meniuInteractiv() {}
+
+public:
+    static meniuInteractiv *getInstance() {
+        if (!obiect)
+            obiect = new meniuInteractiv();
+        return obiect;
+    }
+    void meniu();
+};
+void meniuInteractiv::meniu() {
+    int k = 1;
+    while (k) {
+        cout << "\n1. Adauga animal\n2. Afiseaza animal\n3. Actiuni animal\n4. Actualizeaza animal\n5. Sterge animal\n6. Adauga animal la veterinar \n7. Iesire\n";
+        int comanda;
+        cin >> comanda;
+        switch (comanda) {
+                //adauga
+            case 1: {
+                cout << "\nCe animal doriti sa adaugati ?\n1. Caine\n2. Vaca\n3. Pisica\n4. Cal\n5. Delfin\n6. Ornitorinc\n7. Intoarcere la meniu principal\n";
+                int comanda1;
+                cin >> comanda1;
+                switch (comanda1) {
+                    case 1: {
+                        cout << "\nAti ales sa creati un caine !";
+                        caine c;
+                        cin >> c;
+                        cout << "\nCaine creat cu succes !";
+                        break;
+                    }
+                    case 2: {
+                        cout << "\nAti ales sa creati o vaca !";
+                        vaca c;
+                        cin >> c;
+                        cout << "\nVaca creata cu succes !";
+                        break;
+                    }
+                    case 3: {
+                        cout << "\nAti ales sa creati o pisica !";
+                        pisica c;
+                        cin >> c;
+                        cout << "\nPisic creata cu succes !";
+                        break;
+                    }
+                    case 4: {
+                        cout << "\nAti ales sa creati un cal !";
+                        cal c;
+                        cin >> c;
+                        cout << "\nCal creat cu succes !";
+                        break;
+                    }
+                    case 5: {
+                        cout << "\nAti ales sa creati un delfin !";
+                        delfin c;
+                        cin >> c;
+                        cout << "\nDelfin creat cu succes !";
+                        break;
+                    }
+                    case 6: {
+                        cout << "\nAti ales sa creati un ornitorinc !";
+                        delfin c;
+                        cin >> c;
+                        cout << "\nOrnitorinc creat cu succes !";
+                        break;
+                    }
+                    case 7: {
+                        break;
+                    }
+                    default: {
+                        cout << "\nAti introdus o varianta gresita !";
+                        break;
+                    }
+                }
+
+
+                break;
+            }
+                //afisare
+            case 2: {
+                cout << "Ce doriti sa afisati ?\n1. Caine\n2. Vaca\n3. Pisica\n4. Cal\n5. Delfin\n6. Ornitorinc\n7. Intoarcere la meniul principal";
+                int comanda1;
+                cin >> comanda1;
+                switch (comanda1) {
+                    case 1: {
+                        cout << "\nAti ales sa afisati un caine !";
+                        caine c;
+                        cin >> c;
+                        cout << "\nCaine afisat cu succes !";
+                        break;
+                    }
+                    case 2: {
+                        cout << "\nAti ales sa afisati o vaca !";
+                        vaca c;
+                        cin >> c;
+                        cout << "\nVaca afisata cu succes !";
+                        break;
+                    }
+                    case 3: {
+                        cout << "\nAti ales sa afisati o pisica !";
+                        pisica c;
+                        cin >> c;
+                        cout << "\nPisic afisata cu succes !";
+                        break;
+                    }
+                    case 4: {
+                        cout << "\nAti ales sa afisati un cal !";
+                        cal c;
+                        cin >> c;
+                        cout << "\nCal afisat cu succes !";
+                        break;
+                    }
+                    case 5: {
+                        cout << "\nAti ales sa afisati un delfin !";
+                        delfin c;
+                        cin >> c;
+                        cout << "\nDelfin afisat cu succes !";
+                        break;
+                    }
+                    case 6: {
+                        cout << "\nAti ales sa afisati un ornitorinc !";
+                        delfin c;
+                        cin >> c;
+                        cout << "\nOrnitorinc afisat cu succes !";
+                        break;
+                    }
+                    case 7: {
+                        break;
+                    }
+                    default: {
+                        cout << "\nAti introdus o varianta gresita !";
+                        break;
+                    }
+
+                    break;
+                }
+                    //actiuni
+                case 3: {
+                    break;
+                }
+                    //actualizare
+                case 4: {
+                    break;
+                }
+                    //sterge
+                case 5: {
+                    break;
+                }
+                    //Adauga animal la veterinar
+                case 6: {
+                    break;
+                }
+                    //iesire
+                case 7: {
+                    k = 0;
+                    break;
+                } break;
+                default: {
+                    cout << "\nAti introdus o varianta gresita !";
+                    break;
+                }
+            }
+        }
+    }
+}
+meniuInteractiv *meniuInteractiv::obiect = 0;
 int main() {
-    vaca d;
-    cin >> d;
-    cout << d;
+
+    mamifer *cal1 = new cal();
+    mamifer *delfin1 = new delfin();
+    ierbivore.push_back(cal1);
+    ierbivore.push_back(delfin1);
+
+    /*for(auto x:ierbivore)
+        if(cal *cal2=dynamic_cast<cal*>(x))
+            cal2->mancaMorcov();*/
+    meniuInteractiv *meniulMeu = meniulMeu->getInstance();
+    meniulMeu->meniu();
 
 
     return 0;
